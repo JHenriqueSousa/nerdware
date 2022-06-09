@@ -15,7 +15,8 @@ class Page {
     ];
 
     // criar o método mágico constructor. Por padrão caso não chegue nada à variável opções (opts) o array fica vazio
-    public function __construct($opts = array()) {
+    // no segundo parametro estamos a dizer que por padrão, ou seja se não mencionarmos nada, irá para o folder views. Isto é necessário porque esta classe será utilizado na classe pageAdmin. Não podemos usar a mesma class porque a class page está a trabalhar com a pasta views. Se utilizássemos a mesma class iria gerar conflito, visto que iriamos ter dois header, dois footer e dois index (um iria subscrever o outro)
+    public function __construct($opts = array(), $tpl_dir = "/views/") {
 
         // se eu passar alguma informação no segundo parametro (opts, que é chamado pelo construtuor) e por algum motivo der conflicto com o defaults, o que fica é o opts. As duas informações vão juntar (array_merge) e o resultado vai ser guardado no atributo options
         $this->options = array_merge($this->defaults, $opts);
@@ -24,7 +25,7 @@ class Page {
             # para o raintpl funcionar é necessário uma pasta para ir buscar os arquivos html (tpl_dir) e outra para o cache (cache_dir)
 
             # utilização da variável ambiente server document root. Está variável ambiente vai buscar onde está o dirétorio root (dirétório inicial). Desta maneira o código fica mais inteligente e evita problemas futuros
-            "tpl_dir"       => $_SERVER["DOCUMENT_ROOT"]. "/views/",
+            "tpl_dir"       => $_SERVER["DOCUMENT_ROOT"]. $tpl_dir,
             "cache_dir"     => $_SERVER["DOCUMENT_ROOT"]. "/views-cache/",
             "debug"         => false // set to false to improve the speed
         );
