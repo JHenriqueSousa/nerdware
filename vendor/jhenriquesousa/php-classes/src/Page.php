@@ -11,6 +11,8 @@ class Page {
     private $tpl;
     private $options = [];
     private $defaults = [
+        "header" =>true,
+        "footer" =>true,
         "data" => []
     ];
 
@@ -37,7 +39,7 @@ class Page {
         $this->setData($this->options["data"]);
 
         # quando alguem quer criar uma página (no nosso projeto seria chamar o constructer) a primeira coisa a ser feita é o header, portanto é o que iremos fazer primeiro.
-        $this ->tpl-> draw("header"); # o draw é um método do tpl. o header está na pasta views
+        if ($this->options["header"] === true) $this ->tpl-> draw("header"); # o draw é um método do tpl. o header está na pasta views
 
     }
 
@@ -60,7 +62,7 @@ class Page {
     }
     public function __destruct() {
 
-        $this ->tpl-> draw("footer"); # o draw é um método do tpl. o footer está na pasta views
+        if ($this->options["footer"] === true) $this ->tpl-> draw("footer"); # o draw é um método do tpl. o footer está na pasta views
 
     }
 }
