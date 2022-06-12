@@ -5,9 +5,15 @@ use \jhenriquesousa\DB\Sql;
 
 use \jhenriquesousa\Model;
 
+use \jhenriquesousa\Mailer;
+
 class User extends Model {
 
     const SESSION = "User";
+    // chave da criptografia
+    const SECRET = "jhenrique_Secret";
+
+    const SECRET_IV = "jhenrique_Secret_IV";
 
     public static function login($login, $password)
     {
@@ -130,13 +136,140 @@ class User extends Model {
 
     // apagar utilizadores
     public function delete()
-    {
-        $sql = new Sql();
+	{
 
-        $sql->query("CALL sp_users_delete(:iduser)", array (
-            ":iduser"=>$this->getiduser()
-        ));
+		$sql = new Sql();
+
+		$sql->query("CALL sp_users_delete(:iduser)", array(
+			":iduser"=>$this->getiduser()
+		));
+
+	}
+
+    public static function getForgot($email, $inadmin = true)
+	{
+
+		$sql = new Sql();
+
+		$results = $sql->select("
+			SELECT *
+			FROM tb_persons a
+			INNER JOIN tb_users b USING(idperson)
+			WHERE a.desemail = :email;
+		", array(
+			":email"=>$email
+		));
+
+		if (count($results) === 0)
+		{
+
+			throw new \Exception("Não foi possível recuperar a senha.");
+
+		}
+        else 
+        {
+            $data = $results[0];
+
+            $results2= $sql->select("CALL sp_userspasswordsrecoveries_create(:iduser, :desip)", array(
+                // o iduser está no results
+                ":iduser" => $data["iduser"],
+                ":desip" => $_SERVER["REMOTE_ADDR"] //ip address do utilizador que está a recuperar a palavra passe
+            ));
+
+            if (count($results2) === 0)
+            {
+                throw new \Exception("Não é possivel recuperar a palavra-passe.");
+            }
+            else 
+            {
+                $dataRecovery = $results2[0];
+
+                // Vai ser criado  um código no idrecovery. Este código vai ser criptografado. Vamos transformar o código em base64 para ser possivel enviar por link
+                $code = openssl_encrypt($dataRecovery['idrecovery'], 'AES-128-CBC', pack("a16", User::SECRET), 0, pack("a16", User::SECRET_IV));
+
+				$code = base64_encode($code);
+
+				if ($inadmin === true) {
+
+					$link = "http://www.nerdware.com/admin/forgot/reset?code=$code";
+
+				} else {
+
+					$link = "http://www.nerdware.com/forgot/reset?code=$code";
+					
+				}				
+
+				$mailer = new Mailer($data['desemail'], $data['desperson'], "Recuperar a sua palavra-passe.", "forgot", array(
+					"name"=>$data['desperson'],
+					"link"=>$link
+				));				
+
+				$mailer->send();
+
+				return $link;
+            }
+        }
     }
+
+    public static function validForgotDecrypt($code)
+    {
+        // como o código foi criptografado (base64) agora precisamos de fazer o processo inverso
+        $code = base64_decode($code);
+
+        $idrecovery = openssl_decrypt($code, 'AES-128-CBC', pack("a16", User::SECRET), 0, pack("a16", User::SECRET_IV));
+
+		$sql = new Sql();
+
+		$results = $sql->select("
+			SELECT *
+			FROM tb_userspasswordsrecoveries a
+			INNER JOIN tb_users b USING(iduser)
+			INNER JOIN tb_persons c USING(idperson)
+			WHERE
+                a.idrecovery = :idrecovery
+                AND
+                a.dtrecovery IS NULL
+                AND
+                DATE_ADD(a.dtregister, INTERVAL 1 HOUR) >= NOW();
+		", array(
+			":idrecovery"=>$idrecovery
+		));
+
+		if (count($results) === 0)
+		{
+			throw new \Exception("Não foi possível recuperar a palavra-passe.");
+		}
+		else
+		{
+
+			return $results[0];
+
+		}
+
+	}
+
+    public static function setFogotUsed($idrecovery)
+	{
+
+		$sql = new Sql();
+
+		$sql->query("UPDATE tb_userspasswordsrecoveries SET dtrecovery = NOW() WHERE idrecovery = :idrecovery", array(
+			":idrecovery"=>$idrecovery
+		));
+
+	}
+
+    public function setPassword($password)
+	{
+
+		$sql = new Sql();
+
+		$sql->query("UPDATE tb_users SET despassword = :password WHERE iduser = :iduser", array(
+			":password"=>$password,
+			":iduser"=>$this->getiduser()
+		));
+
+	}
 }
 
 ?>

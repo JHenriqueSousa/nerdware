@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'jhenriquesousa\\' => array($vendorDir . '/jhenriquesousa/php-classes/src'),
+    'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
 );
