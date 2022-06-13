@@ -4,6 +4,7 @@ namespace jhenriquesousa;
 
 // como vou utilizar classes do raintpl e este tem o próprio namespace é preciso chamá-lo
 use Rain\Tpl;
+use \jhenriquesousa\Model\User;
 
 class Page {
 
@@ -35,6 +36,8 @@ class Page {
         Tpl::configure( $config );
 
         $this->tpl = new Tpl;
+
+        if (isset($_SESSION[User::SESSION])) $this->tpl->assign("user", $_SESSION[User::SESSION]);
 
         $this->setData($this->options["data"]);
 
