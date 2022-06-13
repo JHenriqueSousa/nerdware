@@ -346,6 +346,23 @@ $app->post("/admin/categories/:idcategory", function($idcategory){
 
 });
 
+// rota para a categoria escolhida (através do id dela- :idcategory)
+$app->get("/categories/:idcategory", function($idcategory){
+
+	$category = new Category();
+
+	$category->get((int)$idcategory);
+
+	// como vai mostrar html precisamos da class page
+	$page = new Page();
+
+	// lista de todas as categorias que estão na base de dados
+	$page->setTpl("category", [
+		'category' => $category -> getValues()
+	]);
+
+});
+
 $app->run();
 
  ?>

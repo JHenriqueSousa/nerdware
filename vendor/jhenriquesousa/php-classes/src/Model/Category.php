@@ -9,7 +9,7 @@ use \jhenriquesousa\Mailer;
 
 class Category extends Model {
 
-    // listar todos os utilizadores
+    // listar todos as categorias
     public static function listAll() 
     {
         $sql = new SQL();
@@ -39,6 +39,8 @@ class Category extends Model {
         ]);
 
         $this->setData($results[0]);
+
+        Category::updateFile();
     }
 
     public function delete()
@@ -48,6 +50,26 @@ class Category extends Model {
         $sql->query("DELETE FROM tb_categories WHERE idcategory = :idcategory", [
             ':idcategory'=>$this->getidcategory()
         ]);
+
+        Category::updateFile();
+    }
+
+    // método para atualizar as categorias no front-end
+    public static function updateFile(){
+
+        // listar todos as categorias
+        $categories = Category::listAll();
+
+        // como existem várias categorias é necessário fazer um foreach
+        $html = [];
+
+        // cada registo que vier da base de dados vai ser chamado de row
+        foreach ($categories as $row){
+            array_push($html, '<li><a href="/categories/' . $row['idcategory'].'">'.$row['descategory'].'</a></li>');
+        }
+
+         file_put_contents($_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . "views" . DIRECTORY_SEPARATOR . "categories-menu.html", implode('', $html));
+
     }
 
 }
