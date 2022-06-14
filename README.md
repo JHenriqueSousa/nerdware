@@ -12,12 +12,12 @@
 * **Recuperação da Palavra-Passe** - Qualquer utilizador consegue trocar a palavra-passe através do email. 
 * **Categorias: Painel de Admin** - Criação, edição e remoção das categorias dos produtos.
 * **Categorias: Front-end** - Conexão das categorias criadas no painel de admin com o front-end do website.
-
-## Funcionalidades em Desenvolvimento
 * **Produtos: Painel de Admin** - Criação, edição e remoção dos produtos.
 
-## Funcionalidades por Desenvolver 
+## Funcionalidades em Desenvolvimento
 * **Produtos: Front-end** - Conexão dos produtos criados no painel de admin com o front-end do website.
+
+## Funcionalidades por Desenvolver 
 * **Paginação** - Gerenciamento da paginação do website.
 * **Carrinho de Compras** - Criação do carrinho de compras.
 * **Mais no Futuro**
