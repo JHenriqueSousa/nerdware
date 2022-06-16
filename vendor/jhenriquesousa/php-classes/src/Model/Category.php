@@ -65,7 +65,7 @@ class Category extends Model {
 
         // cada registo que vier da base de dados vai ser chamado de row
         foreach ($categories as $row){
-            array_push($html, '<li><a href="/categories/' . $row['idcategory'].'">'.$row['descategory'].'</a></li>');
+            array_push($html, '<li><a class="dropdown-item" href="/categories/' . $row['idcategory'].'">'.$row['descategory'].'</a></li>');
         }
 
          file_put_contents($_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . "views" . DIRECTORY_SEPARATOR . "categories-menu.html", implode('', $html));

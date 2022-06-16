@@ -44,14 +44,13 @@ $app -> post("/admin/products/create", function(){
     exit;
 });
 
-$app -> get("/admin/products/:idproduct", function($idproduct){
-
+$app->get("/admin/products/:idproduct", function($idproduct){
     User::verifyLogin();
     $product = new Product();
     $product->get((int)$idproduct);
     $page = new PageAdmin();
-    $page->setTpl("products-update", [
-        "product" => $product ->getValues()
+    $page->setTpl("products-update",[
+        'product'=>$product->getValues()
     ]);
 });
 

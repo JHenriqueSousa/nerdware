@@ -18,18 +18,6 @@ $app->get('/', function() {
 
 });
 
-$app->get('/produtos', function() {
-
-	$products = Product::listAll();
-    
-	$page = new Page();
-
-	$page->setTpl("produtos", [
-		'products' =>Product::checkList($products)
-	]);
-
-});
-
 // rota para a categoria escolhida (através do id dela- :idcategory)
 $app->get("/categories/:idcategory", function($idcategory){
 
@@ -56,6 +44,21 @@ $app->get("/categories/:idcategory", function($idcategory){
 		'category'=>$category->getValues(),
 		'products'=>$pagination["data"],
 		'pages'=>$pages
+	]);
+
+});
+
+$app->get("/products/:desurl", function($desurl){
+
+	$product = new Product();
+
+	$product->getFromURL($desurl);
+
+	$page = new Page();
+
+	$page->setTpl("product-detail", [
+		'product'=>$product->getValues(),
+		'categories'=>$product->getCategories()
 	]);
 
 });
