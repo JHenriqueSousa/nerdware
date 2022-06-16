@@ -111,21 +111,67 @@ $app->post("/admin/categories/:idcategory", function($idcategory){
 
 });
 
-// rota para a categoria escolhida (através do id dela- :idcategory)
-$app->get("/categories/:idcategory", function($idcategory){
+// rota para a acessar o ficheiro categories-products
+$app->get("/admin/categories/:idcategory/products", function($idcategory){
+
+	// verificar se o utilizador fez o login
+	User::verifyLogin();
 
 	$category = new Category();
 
 	$category->get((int)$idcategory);
 
 	// como vai mostrar html precisamos da class page
-	$page = new Page();
+	$page = new PageAdmin();
 
 	// lista de todas as categorias que estão na base de dados
-	$page->setTpl("category", [
+	$page->setTpl("categories-products", [
 		'category' => $category -> getValues(),
-		'products' => []
+		'productsRelated' => $category->getProducts(),
+		'productsNotRelated' => $category->getProducts(false)
 	]);
+
+});
+
+// rota para a acessar o ficheiro categories-products
+$app->get("/admin/categories/:idcategory/products/:idproduct/add", function($idcategory, $idproduct){
+
+	// verificar se o utilizador fez o login
+	User::verifyLogin();
+
+	$category = new Category();
+
+	$category->get((int)$idcategory);
+
+	$product = new product();
+
+	$product->get((int)$idproduct);
+
+	$category->addProduct($product);
+
+	header("Location: /admin/categories/".$idcategory."/products");
+	exit;
+
+});
+
+// rota para a acessar o ficheiro categories-products
+$app->get("/admin/categories/:idcategory/products/:idproduct/remove", function($idcategory, $idproduct){
+
+	// verificar se o utilizador fez o login
+	User::verifyLogin();
+
+	$category = new Category();
+
+	$category->get((int)$idcategory);
+
+	$product = new Product();
+
+	$product->get((int)$idproduct);
+
+	$category->removeProduct($product);
+
+	header("Location: /admin/categories/".$idcategory."/products");
+	exit;
 
 });
 ?>
