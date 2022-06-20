@@ -15,6 +15,54 @@ class User extends Model {
 
     const SECRET_IV = "jhenrique_Secret_IV";
 
+    public static function getFromSession()
+	{
+
+		$user = new User();
+
+		if (isset($_SESSION[User::SESSION]) && (int)$_SESSION[User::SESSION]['iduser'] > 0) {
+
+			$user->setData($_SESSION[User::SESSION]);
+
+		}
+
+		return $user;
+
+	}
+
+    public static function checkLogin($inadmin = true)
+	{
+
+		if (
+			!isset($_SESSION[User::SESSION])
+			||
+			!$_SESSION[User::SESSION]
+			||
+			!(int)$_SESSION[User::SESSION]["iduser"] > 0
+		) {
+			//Não está logado
+			return false;
+
+		} else {
+
+			if ($inadmin === true && (bool)$_SESSION[User::SESSION]['inadmin'] === true) {
+
+				return true;
+
+			} else if ($inadmin === false) {
+
+				return true;
+
+			} else {
+
+				return false;
+
+			}
+
+		}
+
+	}
+
     public static function login($login, $password)
     {
         $sql = new SQL();
@@ -26,7 +74,8 @@ class User extends Model {
 
         if (count($results) === 0)
         {
-            throw new \Exception ("Utilizador inexistente ou password inválida.");
+            header("Location: erro");
+            exit();
         }
 
         $data = $results[0];
@@ -51,22 +100,21 @@ class User extends Model {
         }
     }
 
-    public static function verifyLogin($inadmin = true) {
-        if (
-            // verificar se a session não foi definida
-            !isset($_SESSION[User::SESSION]) 
-            || #ou
-            !$_SESSION[User::SESSION]
-            || #ou
-            !(int)$_SESSION[User::SESSION]["iduser"] > 0
-            || #ou
-            (bool)$_SESSION[User::SESSION]["inadmin"] !== $inadmin // verificar se é admin ou não
-        ) {
-            // redireciona para a página login
-            header("Location: /admin/login");
-            exit;
-        }
-    }
+    public static function verifyLogin($inadmin = true)
+	{
+
+		if (!User::checkLogin($inadmin)) {
+
+			if ($inadmin) {
+				header("Location: /admin/login");
+			} else {
+				header("Location: /login");
+			}
+			exit;
+
+		}
+
+	}
 
     public static function logout() 
     {

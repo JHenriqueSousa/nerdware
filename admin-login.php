@@ -111,4 +111,16 @@ $app->post("/admin/forgot/reset", function(){
 	$page->setTpl("forgot-reset-success");
 
 });
+
+$app->get('/admin/erro', function() {
+    
+	$page = new PageAdmin([
+		// desabilitar o footer e o header configurados na class page (métodos constructers)
+		"header" =>false,
+		"footer" =>false
+	]);
+
+	$page->setTpl("erro");
+
+});
 ?>
