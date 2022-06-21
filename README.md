@@ -9,18 +9,22 @@
 ## Funcionalidades Desenvolvidas
 * **Sistema de Login** - Sistema de login para o Administrador. 
 * **Painel de Admin** - Permite a criação, edição e remoção de utilizadores. 
-* **Recuperação da Palavra-Passe** - Qualquer utilizador consegue trocar a palavra-passe através do email. 
+* **Recuperação da Palavra-Passe** - Qualquer admin consegue trocar a palavra-passe através do email. 
 * **Categorias: Painel de Admin** - Criação, edição e remoção das categorias dos produtos.
 * **Categorias: Front-end** - Conexão das categorias criadas no painel de admin com o front-end do website.
 * **Produtos: Painel de Admin** - Criação, edição e remoção dos produtos.
-
-## Funcionalidades em Desenvolvimento
 * **Produtos: Front-end** - Conexão dos produtos criados no painel de admin com o front-end do website.
-
-## Funcionalidades por Desenvolver 
 * **Paginação** - Gerenciamento da paginação do website.
 * **Carrinho de Compras** - Criação do carrinho de compras.
-* **Mais no Futuro**
+* **Registo e Login de contas** - Registo e login das contas dos utilizadores.
+
+## Funcionalidades em Desenvolvimento
+* **Esquecer a palavra-passe (front-end)** -  Qualquer utilizador consegue trocar a palavra-passe através do email. 
+
+## Funcionalidades por Desenvolver 
+* **A minha conta** - Acesso aos seus dados na zona "A minha conta" na nerdware.
+* **Pagamentos** - Pagamentos.
+* **Ajustes Finais**
 
 ## Templates
 Painel de Administrador- [Almsaeed Studio](https://almsaeedstudio.com)

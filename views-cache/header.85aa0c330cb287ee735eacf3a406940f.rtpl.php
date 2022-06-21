@@ -42,12 +42,28 @@
                                 <li><a class="dropdown-item" href="mailto:nerdware@jhenriquesousa.com" target="_blank">E-mail</a></li>
                             </ul>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Conta</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <?php if( checkLogin(false) ){ ?>
+
+                                <li><a class="dropdown-item"><?php echo getUserName(); ?></a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="/logout">Sair</a></li>
+                                <?php }else{ ?>
+
+                                <li><a class="dropdown-item" href="/login">Entrar</a></li>
+                                <?php } ?>
+
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" aria-current="page" href="/teste">Teste</a></li>
                     </ul>
                     <form action="/cart" class="d-flex">
                         <button class="btn btn-outline-dark" type="submit">
                             <i class="bi-cart-fill me-1"></i>
                             Carrinho
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                            <span class="badge bg-dark text-white ms-1 rounded-pill"><?php echo getCartNrQtd(); ?></span>
                         </button>
                     </form>
                 </div>

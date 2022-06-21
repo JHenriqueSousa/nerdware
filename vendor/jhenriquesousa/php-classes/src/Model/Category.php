@@ -43,15 +43,16 @@ class Category extends Model {
         Category::updateFile();
     }
 
-    public function delete()
-    {
-        $sql = new Sql();
-
-        $sql->query("DELETE FROM tb_categories WHERE idcategory = :idcategory", [
-            ':idcategory'=>$this->getidcategory()
-        ]);
-
-        Category::updateFile();
+    public function delete(){ 
+    
+        $sql = new Sql(); 
+            
+        $sql->query("CALL sp_categories_delete(:idcategory);", [ 
+               
+        ':idcategory'=>$this->getidcategory() 
+           
+        ]); 
+         
     }
 
     // método para atualizar as categorias no front-end

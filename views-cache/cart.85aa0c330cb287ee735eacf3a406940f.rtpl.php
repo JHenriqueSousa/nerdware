@@ -53,7 +53,7 @@
                             <td></td>
                             <td></td>
                             <td>Shipping</td>
-                            <td class="text-right">6,90 €</td>
+                            <td class="text-right">5€</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -61,7 +61,7 @@
                             <td></td>
                             <td></td>
                             <td><strong>Total</strong></td>
-                            <td class="text-right"><strong>346,90 €</strong></td>
+                            <td class="text-right"><strong><?php echo formatPrice($cart["vltotal"]); ?>€</strong></td>
                         </tr>
                     </tbody>
                 </table>
@@ -70,10 +70,10 @@
         <div class="col mb-2">
             <div class="row">
                 <div class="col-sm-12  col-md-6">
-                    <button class="btn btn-block btn-light">Continue Shopping</button>
+                    <button class="btn btn-block btn-light">Continuar a comprar</button>
                 </div>
                 <div class="col-sm-12 col-md-6 text-right">
-                    <button class="btn btn-lg btn-block btn-success text-uppercase">Checkout</button>
+                    <button class="btn btn-block btn-success">Checkout</button>
                 </div>
             </div>
         </div>
