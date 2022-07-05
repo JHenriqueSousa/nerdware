@@ -74,11 +74,10 @@ class User extends Model {
             ":LOGIN"=>$login
            ));
 
-        if (count($results) === 0)
-        {
-            header("Location: erro");
-            exit();
-        }
+		   if (count($results) === 0)
+		   {
+			   throw new \Exception("Usuário inexistente ou palavra-passe inválida.");
+		   }
 
         $data = $results[0];
 

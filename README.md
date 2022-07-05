@@ -28,3 +28,4 @@
 
 ## Templates
 Painel de Administrador- [Almsaeed Studio](https://almsaeedstudio.com)
+Template da Loja- [Olog](https://github.com/echotemplate/olog-ecommerce-responsive-html-template)

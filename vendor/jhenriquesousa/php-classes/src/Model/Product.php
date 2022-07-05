@@ -9,7 +9,28 @@ use \jhenriquesousa\Mailer;
 
 class Product extends Model {
 
+    public static function listAllProdutos() 
+    {
+        $sql = new SQL();
+
+        return $sql->select("SELECT * FROM tb_products ORDER BY desproduct LIMIT 9");
+    }
+
     // listar todos as categorias
+    public static function listAllIndex() 
+    {
+        $sql = new SQL();
+
+        return $sql->select("SELECT * FROM tb_products ORDER BY dtregister DESC LIMIT 4");
+    }
+
+    public static function listAllNovidades() 
+    {
+        $sql = new SQL();
+
+        return $sql->select("SELECT * FROM tb_products ORDER BY dtregister DESC LIMIT 12");
+    }
+
     public static function listAll() 
     {
         $sql = new SQL();

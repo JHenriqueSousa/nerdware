@@ -1,91 +1,98 @@
- 
-<div class="product-big-title-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="product-bit-title text-center">
-                    <h2>Autenticação</h2>
+{if="checkLogin(false)"}
+<meta http-equiv="refresh" content="0; URL=http://www.nerdware.com/logout" />
+{else}
+<main>
+    <section class="account-sign">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-12">
+                    <div class="account-sign-in">
+                        <h5 class="text-center">Entre na sua conta Nerdware!</h5>
+                        {if="$error != ''"}
+                        <div class="alert alert-danger">
+                        {$error}
+                        </div>
+                        {/if}
+                        <form action="/login" id="login-form-wrap" class="login" method="post">
+                            <div class="form__div">
+                                <input type="text" id="login" name="login" class="form__input" placeholder=" ">
+                                <label for="login" class="form__label">Email</label>
+                            </div>
+                            <div class="form__div mb-0">
+                                <input type="password" id="senha" name="password" class="form__input" placeholder=" ">
+                                <label for="senha" class="form__label">Palavra-Passe</label>
+                            </div>
+                            <div class="password-info d-flex align-items-center justify-content-between flex-wrap">
+                                <div class="password-info-left">
+                                    <input type="checkbox" id="showpass" class="mb-0" onclick="myFunction()">
+                                    <label for="showpass" class="mb-0">Mostrar Palavra-Passe</label>
+                                </div>
+                            </div>
+                            <div class="password-info-right">
+                                <a href="forget-password.html">Esqueceu-se da palavra-passe?</a>
+                            </div>
+                            <br>
+                            <input type="submit" value="Iniciar Sessão" class="btn bg-primary"></input>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <div class="account-sign-up">
+                        <h5 class="text-center">Ainda não tem conta? Registe-se agora.</h5>
+                        {if="$errorRegister != ''"}
+                        <div class="alert alert-danger">
+                            {$errorRegister}
+                        </div>
+                        {/if}
+                        <form action="/register" class="register" method="post">
+                            <div class="form__div">
+                                <input id="nome" name="name" type="text" class="form__input" placeholder=" ">
+                                <label for="nome" class="form__label">Nome Completo</label>
+                            </div>
+                            <div class="form__div">
+                                <input name="email" id="email" type="email" class="form__input" placeholder=" ">
+                                <label for="email" class="form__label">Email</label>
+                            </div>
+                            <div class="form__div">
+                                <input type="text" id="phone" name="phone" class="form__input" placeholder=" ">
+                                <label for="phone" class="form__label">Telefone</label>
+                            </div>
+                            <div class="form__div mb-0">
+                                <input type="password" id="senha1" name="password" class="form__input" placeholder=" ">
+                                <label for="senha" class="form__label">Palavra-Passe</label>
+                            </div>
+                            <div class="password-info-show">
+                                <input type="checkbox" id="showpass" class="mb-0" onclick="funcao()">
+                                <label for="showpass" class="mb-0">Mostrar Palavra-Passe</label>
+                            </div>
+                            <input type="submit" value="Criar Conta" name="login" class="btn bg-primary">
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </section>
+</main>
+{/if}
+                        
+<script>
+    function myFunction() {
+  var x = document.getElementById("senha");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+</script>
 
-<div class="single-product-area">
-    <div class="zigzag-bottom"></div>
-    <div class="container">
-        <div class="row">                
-            <div class="col-md-6">
-
-                {if="$error != ''"}
-                <div class="alert alert-danger">
-                    {$error}
-                </div>
-                {/if}
-
-                <form action="/login" id="login-form-wrap" class="login" method="post">
-                    <h2>Acessar</h2>
-                    <p class="form-row form-row-first">
-                        <label for="login">E-mail <span class="required">*</span>
-                        </label>
-                        <input type="text" id="login" name="login" class="input-text">
-                    </p>
-                    <p class="form-row form-row-last">
-                        <label for="senha">Senha <span class="required">*</span>
-                        </label>
-                        <input type="password" id="senha" name="password" class="input-text">
-                    </p>
-                    <div class="clear"></div>
-                    <p class="form-row">
-                        <input type="submit" value="Login" class="button">
-                        <label class="inline" for="rememberme"><input type="checkbox" value="forever" id="rememberme" name="rememberme"> Manter conectado </label>
-                    </p>
-                    <p class="lost_password">
-                        <a href="/forgot">Esqueceu a senha?</a>
-                    </p>
-
-                    <div class="clear"></div>
-                </form>                    
-            </div>
-            <div class="col-md-6">
-                
-                {if="$errorRegister != ''"}
-                <div class="alert alert-danger">
-                    {$errorRegister}
-                </div>
-                {/if}
-
-                <form id="register-form-wrap" action="/register" class="register" method="post">
-                    <h2>Criar conta</h2>
-                    <p class="form-row form-row-first">
-                        <label for="nome">Nome Completo <span class="required">*</span>
-                        </label>
-                        <input type="text" id="nome" name="name" class="input-text" value="{$registerValues.name}">
-                    </p>
-                    <p class="form-row form-row-first">
-                        <label for="email">E-mail <span class="required">*</span>
-                        </label>
-                        <input type="email" id="email" name="email" class="input-text" value="{$registerValues.email}">
-                    </p>
-                    <p class="form-row form-row-first">
-                        <label for="phone">Telefone
-                        </label>
-                        <input type="text" id="phone" name="phone" class="input-text" value="{$registerValues.phone}">
-                    </p>
-                    <p class="form-row form-row-last">
-                        <label for="senha">Senha <span class="required">*</span>
-                        </label>
-                        <input type="password" id="senha" name="password" class="input-text">
-                    </p>
-                    <div class="clear"></div>
-
-                    <p class="form-row">
-                        <input type="submit" value="Criar Conta" name="login" class="button">
-                    </p>
-
-                    <div class="clear"></div>
-                </form>                            
-            </div>
-        </div>
-    </div>
-</div>
+<script>
+    function funcao() {
+  var x = document.getElementById("senha1");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+</script>

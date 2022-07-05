@@ -1,154 +1,161 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-
-{if="$cart.vlsubtotal > 0"}
-<div class="container mb-4">
-    <div class="row">
-        <div class="col-12">
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col"> </th>
-                            <th scope="col">Produto</th>
-                            <th scope="col">Available</th>
-                            <th scope="col" class="text-center">Quantidade</th>
-                            <th scope="col" class="text-right">Preço</th>
-                            <th> </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {loop="$products"}
-                        <tr>
-                            <td><img src="{$value.desphoto}" /> </td>
-                            <td>{$value.desproduct}</td>
-                            <td>In stock</td>
-                            <td>
-                                <input type="button" class="minus" value="-" onclick="window.location.href = '/cart/{$value.idproduct}/minus'">
-                                <input type="number" size="4" class="input-text qty text" title="Qty" value="{$value.nrqtd}" min="0" step="1">
-                                <input type="button" class="plus" value="+" onclick="window.location.href = '/cart/{$value.idproduct}/add'">
-                            </td>
-                            <td class="text-right">{function="formatPrice($value.vltotal)"}€</td>
-                            <td class="text-right" ><a href="/cart/{$value.idproduct}/remove" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </a> </td>
-                        </tr>
-                        {/loop}
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>Sub-Total</td>
-                            <td class="text-right">{function="formatPrice($cart.vlsubtotal)"}€</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>Shipping</td>
-                            <td class="text-right">5€</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td><strong>Total</strong></td>
-                            <td class="text-right"><strong>{function="formatPrice($cart.vltotal)"}€</strong></td>
-                        </tr>
-                    </tbody>
-                </table>
+<section class="breadcrumb-area mt-15">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Início</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Carrinho</li>
+                    </ol>
+                </nav>
+                <h5>Carrinho</h5>
             </div>
         </div>
-        <div class="col mb-2">
-            <div class="row">
-                <div class="col-sm-12  col-md-6">
-                    <button class="btn btn-block btn-light">Continuar a comprar</button>
+    </div>
+</section>
+{if="$cart.vlsubtotal > 0"}
+<section class="cart-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- Dashboard-Nav  Start-->
+                <div class="dashboard-nav">
+                    <ul class="list-inline">
+                        {if="checkLogin(false)"}
+                        <li class="list-inline-item"><a href="user-dashboard.html">A Minha Conta</a></li>
+                        <li class="list-inline-item"><a href="/cart" class="active">Carrinho</a></li>
+                        <li class="list-inline-item"><a href="/logout" class="mr-0">Terminar Sessão</a></li>
+                        {else}
+                        <li class="list-inline-item"><a href="/cart" class="active">Carrinho</a></li>
+                        <li class="list-inline-item"><a href="/login">Iniciar Sessão</a></li>
+                        {/if}
+                    </ul>
                 </div>
-                <div class="col-sm-12 col-md-6 text-right">
-                    <button class="btn btn-block btn-success">Checkout</button>
+                <!-- Dashboard-Nav  End-->
+            </div>
+        </div>
+        <div class="rows">
+            <div class="cart-items">
+                <div class="header">
+                    <div class="image">
+                        Imagem
+                    </div>
+                    <div class="name">
+                        Produto
+                    </div>
+                    <div class="price">
+                        Preço
+                    </div>
+                    <div class="rating">
+                        Quantidade
+                    </div>
+                    <div class="price">
+                        Total
+                    </div>
+                    <div class="info">
+                    
+                    </div>
+                </div>
+                <div class="body">
+                    {loop="$products"}
+                    <div class="item">
+                        <div class="image">
+                            <img src="{$value.desphoto}">
+                        </div>
+                        <div class="name">
+                            <div class="name-text">
+                                <p>{$value.desproduct}</p>
+                            </div>
+                        </div>
+                        <div class="price">
+                            <span>{function="formatPrice($value.vlprice)"} €</span>
+                        </div>
+                        <div class="info">
+                            <div class="quantity">
+                                <div class="product-pricelist-selector-quantity">
+                                    <div class="wan-spinner wan-spinner-4">
+                                        <a href="/cart/{$value.idproduct}/minus" class="minus">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="11.98" height="6.69"
+                                                viewBox="0 0 11.98 6.69">
+                                                <path id="Arrow" d="M1474.286,26.4l5,5,5-5"
+                                                    transform="translate(-1473.296 -25.41)" fill="none"
+                                                    stroke="#989ba7" stroke-linecap="round" stroke-linejoin="round"
+                                                    stroke-width="1.4" />
+                                            </svg>
+                                        </a>
+                                        <input type="text" value="{$value.nrqtd}" disabled min="1">
+                                        <a href="/cart/{$value.idproduct}/add" class="plus"><svg
+                                                xmlns="http://www.w3.org/2000/svg" width="11.98" height="6.69"
+                                                viewBox="0 0 11.98 6.69">
+                                                <g id="Arrow" transform="translate(10.99 5.7) rotate(180)">
+                                                    <path id="Arrow-2" data-name="Arrow" d="M1474.286,26.4l5,5,5-5"
+                                                        transform="translate(-1474.286 -26.4)" fill="none"
+                                                        stroke="#1a2224" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="1.4" />
+                                                </g>
+                                            </svg></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="price">
+                            <span>{function="formatPrice($value.vltotal)"}€</span>
+                        </div>
+                        <div class="rating">
+                            <a class="del" href="/cart/{$value.idproduct}/remove"><i class="fa fa-trash" aria-disabled="true" style="color: #000;" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                    {/loop}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card-price">
+                    <h6>Resumo</h6>
+                    <div class="card-price-list d-flex justify-content-between align-items-center">
+                        <div class="item">
+                            <p>{function="getCartNrQtd()"} Produtos</p>
+                        </div>
+                        <div class="price">
+                            <p>{function="formatPrice($cart.vlsubtotal)"}€</p>
+                        </div>
+                    </div>
+                    <div class="card-price-list d-flex justify-content-between align-items-center">
+                        <div class="item">
+                            <p>Portes</p>
+                        </div>
+                        <div class="price">
+                            <p>5€</p>
+                        </div>
+                    </div>
+                    <div class="card-price-subtotal d-flex justify-content-between align-items-center">
+                        <div class="total-text">
+                            <p>Preço Total</p>
+                        </div>
+                        <div class="total-price">
+                            <p>{function="formatPrice($cart.vltotal)"}€</p>
+                        </div>
+
+                    </div>
+                    <form action="#">
+                        <a href="billing-information.html" class="btn bg-primary" type="submit" style="width: 100%;">Pagar Agora</a>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 {else}
-Não tem nenhum item no seu carrinho de compras.
+<main>
+    <section class="search">
+        
+            <div class="col-sm">
+                <div class="section-title">
+                    <h2>Sem Produtos no Carrinho</h2>
+                </div>
+            </div>
+        
+    </section>
+</main>
 {/if}
-
-
-<style>
-    /*
-** Style Simple Ecommerce Theme for Bootstrap 4
-** Created by T-PHP https://t-php.fr/43-theme-ecommerce-bootstrap-4.html
-*/
-img {
-  display: block;
-  max-width:50px;
-  max-height:50px;
-  width: auto;
-  height: auto;
-}
-
-.bloc_left_price {
-    color: #c01508;
-    text-align: center;
-    font-weight: bold;
-    font-size: 150%;
-}
-.category_block li:hover {
-    background-color: #007bff;
-}
-.category_block li:hover a {
-    color: #ffffff;
-}
-.category_block li a {
-    color: #343a40;
-}
-.add_to_cart_block .price {
-    color: #c01508;
-    text-align: center;
-    font-weight: bold;
-    font-size: 200%;
-    margin-bottom: 0;
-}
-.add_to_cart_block .price_discounted {
-    color: #343a40;
-    text-align: center;
-    text-decoration: line-through;
-    font-size: 140%;
-}
-.product_rassurance {
-    padding: 10px;
-    margin-top: 15px;
-    background: #ffffff;
-    border: 1px solid #6c757d;
-    color: #6c757d;
-}
-.product_rassurance .list-inline {
-    margin-bottom: 0;
-    text-transform: uppercase;
-    text-align: center;
-}
-.product_rassurance .list-inline li:hover {
-    color: #343a40;
-}
-.reviews_product .fa-star {
-    color: gold;
-}
-.pagination {
-    margin-top: 20px;
-}
-footer {
-    background: #343a40;
-    padding: 40px;
-}
-footer a {
-    color: #f8f9fa!important
-}
-
-</style>

@@ -12,23 +12,58 @@ use \jhenriquesousa\Model\User;
 // rota para o website
 $app->get('/', function() {
 
-	$products = Product::listAll();
+	$products2 = Product::listAllProdutos();
+
+	$products = Product::listAllIndex();
     
 	$page = new Page();
 
 	$page->setTpl("index", [
+		'products' =>Product::checkList($products),
+		'products2' =>Product::checkList($products2)
+	]);
+
+});
+
+$app->get('/404', function() {
+    
+	$page = new Page();
+
+	$page->setTpl("404");
+
+});
+
+$app->get('/novidades', function() {
+
+	$products = Product::listAllNovidades();
+    
+	$page = new Page();
+
+	$page->setTpl("novidades", [
 		'products' =>Product::checkList($products)
 	]);
 
 });
 
-$app->get('/teste', function() {
+$app->get('/produtos', function() {
+
+	$products2 = Product::listAllProdutos();
+    
+	$page = new Page();
+
+	$page->setTpl("produtos", [
+		'products2' =>Product::checkList($products2)
+	]);
+
+});
+
+$app->get('/redirect', function() {
 
 	User::verifyLogin(false);
     
 	$page = new Page();
 
-	$page->setTpl("teste");
+	$page->setTpl("redirect");
 
 });
 
@@ -66,13 +101,16 @@ $app->get("/products/:desurl", function($desurl){
 
 	$product = new Product();
 
+	$products = Product::listAllIndex();
+
 	$product->getFromURL($desurl);
 
 	$page = new Page();
 
 	$page->setTpl("product-detail", [
 		'product'=>$product->getValues(),
-		'categories'=>$product->getCategories()
+		'categories'=>$product->getCategories(),
+		'products' =>Product::checkList($products)
 	]);
 
 });
@@ -101,7 +139,7 @@ $app->get("/cart/:idproduct/add", function($idproduct){
 	$qtd = (isset($_GET['qtd'])) ? (int)$_GET['qtd'] : 1;
 
 	for ($i = 0; $i < $qtd; $i++) {
-		
+
 		$cart->addProduct($product);
 
 	}
@@ -165,7 +203,7 @@ $app->post("/login", function(){
 
 	}
 
-	header("Location: /teste");
+	header("Location: /redirect");
 	exit;
 
 });

@@ -1,45 +1,111 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" />
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" rel="stylesheet" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" rel="stylesheet" />
-<link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet" />
-<header class="bg-dark py-5">
-    <div class="container px-4 px-lg-5 my-5">
-        <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder">Nerdware</h1>
-            <p class="lead fw-normal text-white-50 mb-0">A sua loja de tecnologia que disponibiliza uma vasta gama de produtos e serviços informáticos.</p>
+<section class="breadcrumb-area mt-15">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Início</a></li>
+                        <li class="breadcrumb-item"><a href="/produtos">Produtos</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{$product.desproduct}</li>
+                    </ol>
+                </nav>
+                <h5>Detalhes</h5>
+                <h7>Categorias: {loop="$categories"} <a href="/categories/{$value.idcategory}" style="color: #335aff;">{$value.descategory}</a>{/loop}</h7>
+            </div>
         </div>
     </div>
-</header>
-<div class="container mt-5 mb-5">	
-    <div class="card">	
-        <div class="row g-0">	
-            <div class="col-md-6 border-end">	
-                <div class="d-flex flex-column justify-content-center">	
-                    <div class="main_image">	
-                        <img src="{$product.desphoto}" id="main_product_image" width="350">	
-                    </div>		
-                </div>	
-            </div>	
-            <div class="col-md-6">	
-                <div class="p-3 right-side">	
-                    <div class="d-flex justify-content-between align-items-center">	
-                        <h3>{$product.desproduct}</h3>	
-                    </div>	
-                    <div class="mt-2 pr-3 content">	
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquatempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>	
-                        <p>Categorias: {loop="$categories"} <a href="/categories/{$value.idcategory}">{$value.descategory}</a>{/loop}</p>
-                    </div>	
-                    <h3>{function="formatPrice($product.vlprice)"} €</h3>
-                    <form action="/cart/{$product.idproduct}/add"	>
-                    <div class="buttons d-flex flex-row mt-5 gap-3">	
-                        <button type="submit" class="btn btn-outline-dark">Comprar</button>	
-                    </div>	
-                </form>
-                </div>	
-            </div>	
-        </div>	
-    </div> 
-</div>
-<style type="text/css">
-body{background-color: #ecedee}.card{border: none;overflow: hidden}.thumbnail_images ul{list-style: none;justify-content: center;display: flex;align-items: center;margin-top:10px}.thumbnail_images ul li{margin: 5px;padding: 10px;border: 2px solid #eee;cursor: pointer;transition: all 0.5s}.thumbnail_images ul li:hover{border: 2px solid #000}.main_image{display: flex;justify-content: center;align-items: center;border-bottom: 1px solid #eee;height: 400px;width: 100%;overflow: hidden}.heart{height: 29px;width: 29px;background-color: #eaeaea;border-radius: 50%;display: flex;justify-content: center;align-items: center}.content p{font-size: 12px}.ratings span{font-size: 14px;margin-left: 12px}.colors{margin-top: 5px}.colors ul{list-style: none;display: flex;padding-left: 0px}.colors ul li{height: 20px;width: 20px;display: flex;border-radius: 50%;margin-right: 10px;cursor: pointer}.colors ul li:nth-child(1){background-color: #6c704d}.colors ul li:nth-child(2){background-color: #96918b}.colors ul li:nth-child(3){background-color: #68778e}.colors ul li:nth-child(4){background-color: #263f55}.colors ul li:nth-child(5){background-color: black}.right-side{position: relative}.search-option{position: absolute;background-color: #000;overflow: hidden;align-items: center;color: #fff;width: 200px;height: 200px;border-radius: 49% 51% 50% 50% / 68% 69% 31% 32%;left: 30%;bottom: -250px;transition: all 0.5s;cursor: pointer}.search-option .first-search{position: absolute;top: 20px;left: 90px;font-size: 20px;opacity: 1000}.search-option .inputs{opacity: 0;transition: all 0.5s ease;transition-delay: 0.5s;position: relative}.search-option .inputs input{position: absolute;top: 200px;left: 30px;padding-left: 20px;background-color: transparent;width: 300px;border: none;color: #fff;border-bottom: 1px solid #eee;transition: all 0.5s;z-index: 10}.search-option .inputs input:focus{box-shadow: none;outline: none;z-index: 10}.search-option:hover{border-radius: 0px;width: 100%;left: 0px}.search-option:hover .inputs{opacity: 1}.search-option:hover .first-search{left: 27px;top: 25px;font-size: 15px}.search-option:hover .inputs input{top: 20px}.search-option .share{position: absolute;right: 20px;top: 22px}.buttons .btn{height: 50px;width: 150px;border-radius: 0px !important}
-</style>
+</section>
+<section class="product">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-5 col-12">
+                <div class="product-slider">
+                    <div class="exzoom" id="exzoom">
+                        <div class="exzoom_img_box">
+                            <ul class='exzoom_img_ul'>
+                                <li><img src="{$product.desphoto}" /></li>
+                            </ul>
+                        </div>
+                        <div class="exzoom_nav"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-7 col-12">
+                <div class="product-pricelist">
+                    <h2>{$product.desproduct}</h2>
+                    <div class="product-pricelist-ratting">
+                        <div class="price">
+                            <span>{function="formatPrice($product.vlprice)"} €</span>
+                        </div>
+                    </div>
+                    <p>Disposable Face Masks: 3-Layers Protection, the inner layer is a soft non-woven fabric,
+                        which can absorb the moisture from the breath of the wearer. The middle layer is a
+                        melt-blown polypropylene filtration layer for better filter out the particles in the
+                        air. The outer layer is a water-resistant layer which can block the splashing liquid in
+                        the air.
+                    </p>
+                    <br>
+                    <div class="product-pricelist-selector-button">
+                        <a class="btn cart-bg " href="/cart/{$product.idproduct}/add">Adicionar ao Carrinho
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Product Details Area End -->
+
+<!-- Features Section Start -->
+<section class="features bg-lightwhite">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="section-title">
+                    <h2>Produtos Recomendados</h2>
+                </div>
+            </div>
+        </div>
+        <div class="features-wrapper">
+            <div class="features-active">
+                {loop="$products"}
+                <div class="product-item">
+                    <div class="product-item-image">
+                        <a href="/products/{$value.desurl}"><img src="{$value.desphoto}" alt="..."
+                                class="img-fluid"></a>
+                        <div class="cart-icon">
+                            <a href="/cart/{$value.idproduct}/add">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75"
+                                    viewBox="0 0 16.75 16.75">
+                                    <g id="Your_Bag" data-name="Your Bag" transform="translate(0.75)">
+                                        <g id="Icon" transform="translate(0 1)">
+                                            <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.682" cy="0.714"
+                                                rx="0.682" ry="0.714" transform="translate(4.773 13.571)"
+                                                fill="none" stroke="#1a2224" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="1.5" />
+                                            <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="0.682" cy="0.714"
+                                                rx="0.682" ry="0.714" transform="translate(12.273 13.571)"
+                                                fill="none" stroke="#1a2224" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="1.5" />
+                                            <path id="Path_3" data-name="Path 3"
+                                                d="M1,1H3.727l1.827,9.564a1.38,1.38,0,0,0,1.364,1.15h6.627a1.38,1.38,0,0,0,1.364-1.15L16,4.571H4.409"
+                                                transform="translate(-1 -1)" fill="none" stroke="#1a2224"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="1.5" />
+                                        </g>
+                                    </g>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="product-item-info">
+                        <a href="/products/{$value.desurl}">{$value.desproduct}</a>
+                        <span>{function="formatPrice($value.vlprice)"} €</span>
+                    </div>
+                </div>
+                {/loop}
+            </div>        
+        </div>
+    </div>
+</section>

@@ -60,13 +60,14 @@ class Category extends Model {
 
         // listar todos as categorias
         $categories = Category::listAll();
+        
 
         // como existem várias categorias é necessário fazer um foreach
         $html = [];
 
         // cada registo que vier da base de dados vai ser chamado de row
         foreach ($categories as $row){
-            array_push($html, '<li><a class="dropdown-item" href="/categories/' . $row['idcategory'].'">'.$row['descategory'].'</a></li>');
+            array_push($html, '<li><a href="/categories/' . $row['idcategory'].'">'.$row['descategory'].'</a></li>');
         }
 
          file_put_contents($_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . "views" . DIRECTORY_SEPARATOR . "categories-menu.html", implode('', $html));
@@ -106,7 +107,7 @@ class Category extends Model {
         }
     }
 
-    public function getProductsPage($page = 1, $itemsPerPage = 8)
+    public function getProductsPage($page = 1, $itemsPerPage = 6)
 	{
 
 		$start = ($page - 1) * $itemsPerPage;
