@@ -1,4 +1,4 @@
-Created by [João Henrique Sousa](https://twitter.com/jhenriquesousa)
+Created by [João Henrique Sousa](https://twitter.com/jhenriquesousaa)
 
 Overview
 ============
