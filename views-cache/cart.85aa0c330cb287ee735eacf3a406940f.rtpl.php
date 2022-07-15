@@ -24,7 +24,7 @@
                     <ul class="list-inline">
                         <?php if( checkLogin(false) ){ ?>
 
-                        <li class="list-inline-item"><a href="user-dashboard.html">A Minha Conta</a></li>
+                        <li class="list-inline-item"><a href="minha-conta">A Minha Conta</a></li>
                         <li class="list-inline-item"><a href="/cart" class="active">Carrinho</a></li>
                         <li class="list-inline-item"><a href="/logout" class="mr-0">Terminar Sessão</a></li>
                         <?php }else{ ?>
@@ -165,4 +165,14 @@
         
     </section>
 </main>
+<script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+      var scrollpos = localStorage.getItem("scrollpos");
+      if (scrollpos) window.scrollTo(0, scrollpos);
+    });
+  
+    window.onscroll = function (e) {
+      localStorage.setItem("scrollpos", window.scrollY);
+    };
+  </script>
 <?php } ?>

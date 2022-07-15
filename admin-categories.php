@@ -13,17 +13,44 @@ use \jhenriquesousa\Model\Product;
 
 $app->get("/admin/categories", function(){
 
-	// verificar se o utilizador fez o login
 	User::verifyLogin();
 
-	$categories = Category::listAll();
+	$search = (isset($_GET['search'])) ? $_GET['search'] : "";
+	$page = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
+
+	if ($search != '') {
+
+		$pagination = Category::getPageSearch($search, $page);
+
+	} else {
+
+		$pagination = Category::getPage($page);
+
+	}
+
+	$pages = [];
+
+	for ($x = 0; $x < $pagination['pages']; $x++)
+	{
+
+		array_push($pages, [
+			'href'=>'/admin/categories?'.http_build_query([
+				'page'=>$x+1,
+				'search'=>$search
+			]),
+			'text'=>$x+1
+		]);
+
+	}
 
 	$page = new PageAdmin();
 
-	// lista de todas as categorias que estão na base de dados
 	$page->setTpl("categories", [
-		'categories'=>$categories,
-	]);
+		"categories"=>$pagination['data'],
+		"search"=>$search,
+		"pages"=>$pages
+	]);	
+
 
 });
 
@@ -35,8 +62,10 @@ $app->get("/admin/categories/create", function(){
 	$page = new PageAdmin();
 
 	// lista de todas as categorias que estão na base de dados
-	$page->setTpl("categories-create");
-
+	$page->setTpl("categories-create", [
+	'errorRegister'=>User::getErrorRegister(),
+	'registerValues'=>(isset($_SESSION['registerValues'])) ? $_SESSION['registerValues'] : ['descategory'=>'']
+	]);
 });
 
 // criar categorias- direcionamento da rotas, com a chamada dos métodos
@@ -44,6 +73,24 @@ $app->post("/admin/categories/create", function(){
 
 	// verificar se o utilizador fez o login
 	User::verifyLogin();
+
+	$_SESSION['registerValues'] = $_POST;
+
+    if (!isset($_POST['descategory']) || $_POST['descategory'] == '') {
+
+		User::setErrorRegister("Preencha a categoria.");
+		header("Location: /admin/categories/create");
+		exit;
+
+	}
+
+	if (User::checkLoginExist5($_POST['descategory']) === true) {
+
+		User::setErrorRegister("A categoria já está registada.");
+		header("Location: /admin/categories/create");
+		exit;
+
+	}
 
 	$category = new Category();
 

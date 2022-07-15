@@ -14,6 +14,13 @@
 
 <!-- Main content -->
 <section class="content">
+  <?php if( $errorRegister != '' ){ ?>
+
+  <div class="alert alert-danger">
+      <?php echo htmlspecialchars( $errorRegister, ENT_COMPAT, 'UTF-8', FALSE ); ?>
+
+  </div>
+  <?php } ?>
 
   <div class="row">
   	<div class="col-md-12">
@@ -27,7 +34,7 @@
           <div class="box-body">
             <div class="form-group">
               <label for="descategory">Nome da categoria</label>
-              <input type="text" class="form-control" id="descategory" name="descategory" placeholder="Digite o nome da categoria">
+              <input type="text" class="form-control" id="descategory" name="descategory" placeholder="Digite o nome da categoria" value="<?php echo htmlspecialchars( $registerValues["descategory"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
             </div>
           </div>
           <!-- /.box-body -->

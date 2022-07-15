@@ -22,7 +22,7 @@
                 <div class="dashboard-nav">
                     <ul class="list-inline">
                         {if="checkLogin(false)"}
-                        <li class="list-inline-item"><a href="user-dashboard.html">A Minha Conta</a></li>
+                        <li class="list-inline-item"><a href="/user-dashboard">A Minha Conta</a></li>
                         <li class="list-inline-item"><a href="/cart" class="active">Carrinho</a></li>
                         <li class="list-inline-item"><a href="/logout" class="mr-0">Terminar Sessão</a></li>
                         {else}
@@ -139,7 +139,7 @@
 
                     </div>
                     <form action="#">
-                        <a href="billing-information.html" class="btn bg-primary" type="submit" style="width: 100%;">Pagar Agora</a>
+                        <a href="#" class="btn bg-primary" type="submit" style="width: 100%;">Pagar Agora</a>
                     </form>
                 </div>
             </div>
@@ -158,4 +158,14 @@
         
     </section>
 </main>
+<script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+      var scrollpos = localStorage.getItem("scrollpos");
+      if (scrollpos) window.scrollTo(0, scrollpos);
+    });
+  
+    window.onscroll = function (e) {
+      localStorage.setItem("scrollpos", window.scrollY);
+    };
+  </script>
 {/if}

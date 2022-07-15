@@ -29,7 +29,7 @@
                                 </div>
                             </div>
                             <div class="password-info-right">
-                                <a href="forget-password.html">Esqueceu-se da palavra-passe?</a>
+                                <a href="/forgot">Esqueceu-se da palavra-passe?</a>
                             </div>
                             <br>
                             <input type="submit" value="Iniciar Sessão" class="btn bg-primary"></input>
@@ -46,15 +46,15 @@
                         {/if}
                         <form action="/register" class="register" method="post">
                             <div class="form__div">
-                                <input id="nome" name="name" type="text" class="form__input" placeholder=" ">
+                                <input id="nome" name="name" type="text" class="form__input" placeholder=" " value="{$registerValues.name}">
                                 <label for="nome" class="form__label">Nome Completo</label>
                             </div>
                             <div class="form__div">
-                                <input name="email" id="email" type="email" class="form__input" placeholder=" ">
+                                <input name="email" id="email" type="email" class="form__input" placeholder=" " value="{$registerValues.email}">
                                 <label for="email" class="form__label">Email</label>
                             </div>
                             <div class="form__div">
-                                <input type="text" id="phone" name="phone" class="form__input" placeholder=" ">
+                                <input type="text" id="phone" name="phone" class="form__input" placeholder=" " value="{$registerValues.phone}">
                                 <label for="phone" class="form__label">Telefone</label>
                             </div>
                             <div class="form__div mb-0">

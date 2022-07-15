@@ -4,19 +4,19 @@
         <div class="row main-footer">
             <div class="col-lg-4 col-md-12 col-sm-12 col-12">
                 <div class="main-footer-info">
-                    <img src="res/site/dist/images/logo/white.png" alt="Logo" class="img-fluid">
+                    <h3 style="color: white">Nerdware</h3>
                     <p>
                     A Nerdware é uma loja que atua no mercado de tecnologia, buscando sempre a excelência no que faz.  Com os melhores produtos das linhas de:
-                    Smartphones, Periféricos e Eletrônicos com excelência e com as melhores marcas do mercado.
+                    Smartphones, Periféricos e Eletrônicos com excelência e com as melhores marcas do mercado. 
                     </p>
                 </div>
             </div>
             <div class="col-lg-2 offset-lg-2 col-md-4 col-sm-6 col-12">
                 <div class="main-footer-quicklinks">
-                    <h6>Nerdware</h6>
+                    <h6>Informação</h6>
                     <ul class="quicklink">
-                        <li><a href="#">Código Aberto</a></li>
-                        <li><a href="#">Ajuda &amp; Suporte</a></li>
+                        <li><a href="https://github.com/JHenriqueSousa/nerdware">Código Fonte</a></li>
+                        <li><a href="mailto:nerdware@jhenriquesousa.com">Ajuda &amp; Suporte</a></li>
                     </ul>
                 </div>
             </div>
@@ -24,14 +24,14 @@
                 <div class="main-footer-quicklinks">
                     <h6>Acesso Rápido</h6>
                     <ul class="quicklink">
-                        <li><a href="#">Produtos</a></li>
-                        <li><a href="#">Novidades</a></li>
-                        <li><a href="#">Carrinho</a></li>
+                        <li><a href="/produtos">Produtos</a></li>
+                        <li><a href="/novidades">Novidades</a></li>
+                        <li><a href="/cart">Carrinho</a></li>
                         {if="checkLogin(false)"}
-                        <li><a href="#">A Minha Conta</a></li>
+                        <li><a href="/user-dashboard">A Minha Conta</a></li>
                         <li><a href="/logout">Terminar Sessão</a></li>
                         {else}
-                        <li><a href="#">Iniciar &amp; Criar Sessão</a></li>
+                        <li><a href="/login">Iniciar &amp; Criar Sessão</a></li>
                         {/if}
                     </ul>
                 </div>

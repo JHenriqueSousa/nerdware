@@ -7,8 +7,8 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 class Mailer {
-    const USERNAME = "nerdware@jhenriquesousa.com";
-    CONST PASSWORD = "#papnerdware2022";
+    const USERNAME = "YOUR EMAIL";
+    CONST PASSWORD = "YOUR PASSWORD";
     CONST NAME_FROM = "Nerdware";
 
     private $mail;

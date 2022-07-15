@@ -76,7 +76,7 @@ class User extends Model {
 
 		   if (count($results) === 0)
 		   {
-			   throw new \Exception("Usuário inexistente ou palavra-passe inválida.");
+			   throw new \Exception("Utilizador inexistente ou palavra-passe inválida.");
 		   }
 
         $data = $results[0];
@@ -98,7 +98,7 @@ class User extends Model {
 
 		} 
         else {
-            throw new \Exception ("Utilizador inexistente ou password inválida.");
+            throw new \Exception ("Utilizador inexistente ou palavra-passe inválida.");
         }
     }
 
@@ -167,24 +167,31 @@ class User extends Model {
     
     }
 
-    // editar os utilizadores
-    public function update() 
-    {
-        $sql = new Sql();
+    public function update($passwordHash = true)
+{
 
-        $results = $sql->select("CALL sp_usersupdate_save(:iduser, :desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin)", 
-            array(
-            ":iduser"=>$this->getiduser(),   
-            ":desperson"=>utf8_decode($this->getdesperson()),
-            ":deslogin"=>$this->getdeslogin(), 
-            ":despassword"=>User::getPasswordHash($this->getdespassword()),
-            ":desemail"=>$this->getdesemail(),
-            ":nrphone"=>$this->getnrphone(),
-            ":inadmin"=>$this->getinadmin()
-        ));
+$sql = new Sql();
 
-        $this->setData($results[0]);
-    }
+if ($passwordHash)
+{
+$password = User::getPasswordHash($this->getdespassword());
+} else {
+$password = $this->getdespassword();
+}
+
+$results = $sql->select("CALL sp_usersupdate_save(:iduser, :desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin)", array(
+":iduser"=>$this->getiduser(),
+":desperson"=>utf8_decode($this->getdesperson()),
+":deslogin"=>$this->getdeslogin(),
+//":despassword"=>$this->getdespassword(),
+":despassword"=>$password,
+":desemail"=>$this->getdesemail(),
+":nrphone"=>$this->getnrphone(),
+":inadmin"=>$this->getinadmin()
+));
+
+$this->setData($results[0]);
+}
 
     // apagar utilizadores
     public function delete()
@@ -243,11 +250,11 @@ class User extends Model {
 
 				if ($inadmin === true) {
 
-					$link = "http://www.nerdware.com/admin/forgot/reset?code=$code";
+					$link = "https://www.nerdware.jhenriquesousa.com/admin/forgot/reset?code=$code";
 
 				} else {
 
-					$link = "http://www.nerdware.com/forgot/reset?code=$code";
+					$link = "https://www.nerdware.jhenriquesousa.com/forgot/reset?code=$code";
 					
 				}				
 
@@ -382,6 +389,31 @@ class User extends Model {
 
 	}
 
+	public static function setSuccess($msg)
+	{
+
+		$_SESSION[User::SUCCESS] = $msg;
+
+	}
+
+	public static function getSuccess()
+	{
+
+		$msg = (isset($_SESSION[User::SUCCESS]) && $_SESSION[User::SUCCESS]) ? $_SESSION[User::SUCCESS] : '';
+
+		User::clearSuccess();
+
+		return $msg;
+
+	}
+
+	public static function clearSuccess()
+	{
+
+		$_SESSION[User::SUCCESS] = NULL;
+
+	}
+
     public static function checkLoginExist($login)
 	{
 
@@ -394,6 +426,112 @@ class User extends Model {
 		return (count($results) > 0);
 
 	}
+
+	public static function checkLoginExist2($product)
+	{
+
+		$sql = new Sql();
+
+		$results2 = $sql->select("SELECT * FROM tb_products WHERE desproduct = :desproduct", [
+			':desproduct'=>$product
+		]);
+
+		return (count($results2) > 0);
+
+	}
+
+	public static function checkLoginExist3($product)
+	{
+
+		$sql = new Sql();
+
+		$results3 = $sql->select("SELECT * FROM tb_products WHERE desurl = :desurl", [
+			':desurl'=>$product
+		]);
+
+		return (count($results3) > 0);
+
+	}
+
+	public static function checkLoginExist4($desemail)
+	{
+
+		$sql = new Sql();
+
+		$results4 = $sql->select("SELECT * FROM tb_persons WHERE desemail = :desemail", [
+			':desemail'=>$desemail
+		]);
+
+		return (count($results4) > 0);
+
+	}
+
+	public static function checkLoginExist5($descategory)
+	{
+
+		$sql = new Sql();
+
+		$results5 = $sql->select("SELECT * FROM tb_categories WHERE descategory = :descategory", [
+			':descategory'=>$descategory
+		]);
+
+		return (count($results5) > 0);
+
+	}
+	
+	public static function getPage($page = 1, $itemsPerPage = 10)
+	{
+
+		$start = ($page - 1) * $itemsPerPage;
+
+		$sql = new Sql();
+
+		$results = $sql->select("
+			SELECT SQL_CALC_FOUND_ROWS *
+			FROM tb_users a 
+			INNER JOIN tb_persons b USING(idperson) 
+			ORDER BY b.desperson
+			LIMIT $start, $itemsPerPage;
+		");
+
+		$resultTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal;");
+
+		return [
+			'data'=>$results,
+			'total'=>(int)$resultTotal[0]["nrtotal"],
+			'pages'=>ceil($resultTotal[0]["nrtotal"] / $itemsPerPage)
+		];
+
+	}
+
+	public static function getPageSearch($search, $page = 1, $itemsPerPage = 10)
+	{
+
+		$start = ($page - 1) * $itemsPerPage;
+
+		$sql = new Sql();
+
+		$results = $sql->select("
+			SELECT SQL_CALC_FOUND_ROWS *
+			FROM tb_users a 
+			INNER JOIN tb_persons b USING(idperson)
+			WHERE b.desperson LIKE :search OR b.desemail = :search OR a.deslogin LIKE :search
+			ORDER BY b.desperson
+			LIMIT $start, $itemsPerPage;
+		", [
+			':search'=>'%'.$search.'%'
+		]);
+
+		$resultTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal;");
+
+		return [
+			'data'=>$results,
+			'total'=>(int)$resultTotal[0]["nrtotal"],
+			'pages'=>ceil($resultTotal[0]["nrtotal"] / $itemsPerPage)
+		];
+
+	} 
+
 }
 
 ?>

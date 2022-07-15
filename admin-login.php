@@ -19,15 +19,26 @@ $app->get('/admin/login', function() {
 		"footer" =>false
 	]);
 
-	$page->setTpl("login");
+	$page->setTpl("login", [
+		'error'=>User::getError()
+	]);
 
 });
 
 $app->post('/admin/login', function() {
 
-	User::login($_POST["login"], $_POST["password"]); // criar um método estático porque não sabemos a informação do user	
-	header("Location: /admin");
+	try {
+
+		User::login($_POST['login'], $_POST['password']);
+
+	} catch(Exception $e) {
+
+		User::setError($e->getMessage());
+
+	}	
+	header("Location: /admin/users");
 	exit;
+
 });
 
 $app->get('/admin/logout', function() {
