@@ -1,31 +1,37 @@
-# [Nerdware](https://nerdware.jhenriquesousa.com)
+Created by [João Henrique Sousa](https://twitter.com/jhenriquesousa)
 
-**Nerdware** é um projeto desenvolvido do zero como Prova de Aptidão Profissional para a [escola profissional Bento de Jesus Caraça](https://epbjc.pt/). Neste momento o projeto encontra-se **em desenvolvimento**. A ser desenvolvido por João Henrique Sousa:
+========
+Overview
+========
 
-* [Twitter](https://twitter.com/JHenriqueSousaa)
-* [LinkdIn](https://www.linkedin.com/in/jhenriquesousa/)
-* [Email](mailto:contacto@jhenriquesousa.com)
+Nerdware is a powerful, consistent, and flexible ecommerce
+platform. Built using the [RainTpl](https://github.com/feulf/raintpl3and) and [Slim](https://www.slimframework.com) frameworks, Nerdware provides a
+simple yet highly extensible architecture that encourages companies to start selling Online.
 
-## Funcionalidades Desenvolvidas
-* **Sistema de Login** - Sistema de login para o Administrador. 
-* **Painel de Admin** - Permite a criação, edição e remoção de utilizadores. 
-* **Recuperação da Palavra-Passe** - Qualquer admin consegue trocar a palavra-passe através do email. 
-* **Categorias: Painel de Admin** - Criação, edição e remoção das categorias dos produtos.
-* **Categorias: Front-end** - Conexão das categorias criadas no painel de admin com o front-end do website.
-* **Produtos: Painel de Admin** - Criação, edição e remoção dos produtos.
-* **Produtos: Front-end** - Conexão dos produtos criados no painel de admin com o front-end do website.
-* **Paginação** - Gerenciamento da paginação do website.
-* **Carrinho de Compras** - Criação do carrinho de compras.
-* **Registo e Login de contas** - Registo e login das contas dos utilizadores.
+Nerdware is different. Unlike many other platforms that make extensive use of modules or reusable applications, Nerdware provides most of its
+functionality by default. This approach yields a more integrated and efficient platform.
 
-## Funcionalidades em Desenvolvimento
-* **Esquecer a palavra-passe (front-end)** -  Qualquer utilizador consegue trocar a palavra-passe através do email. 
+Visit the [Nerdware project page](https://nerdware.jhenriquesousa.com) to see everything that Nerdware can do for you. 
 
-## Funcionalidades por Desenvolver 
-* **A minha conta** - Acesso aos seus dados na zona "A minha conta" na nerdware.
-* **Pagamentos** - Pagamentos.
-* **Ajustes Finais**
+Features
+========
 
-## Templates
-Painel de Administrador- [Almsaeed Studio](https://almsaeedstudio.com)
-Template da Loja- [Olog](https://github.com/echotemplate/olog-ecommerce-responsive-html-template)
+In addition to the usual features provided by the framework that Nerdware uses, we provide the following:
+
+* Page Navigation
+* Recover Passwords
+* Shopping Cart
+* Create, Edit and Remove Products
+* Create, Edit and Remove Categories
+* Create, Edit and Remove Users
+* Relate Products to Categories
+* SEO friendly URLs 
+
+Nerdware uses [AdminLTE admin dashboard](https://adminlte.io/), and [Olog eCommerce template](https://echotemplate.com/templates/olog-ecommerce-responsive-html-template)
+
+
+Contributing
+============
+
+Nerdware is an open source project managed using Git version control system. These repositories are hosted on
+[GitHub](https://github.com), so contributing is as easy as forking the project and committing back your enhancements.
