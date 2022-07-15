@@ -1,6 +1,6 @@
 Created by [João Henrique Sousa](https://twitter.com/jhenriquesousa)
 
-Contributing
+Overview
 ============
 
 Nerdware is a powerful, consistent, and flexible ecommerce
