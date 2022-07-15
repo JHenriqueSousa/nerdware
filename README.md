@@ -1,6 +1,7 @@
 Created by [João Henrique Sousa](https://twitter.com/jhenriquesousa)
 
-Overview
+Contributing
+============
 
 Nerdware is a powerful, consistent, and flexible ecommerce
 platform. Built using the [RainTpl](https://github.com/feulf/raintpl3and) and [Slim](https://www.slimframework.com) frameworks, Nerdware provides a
